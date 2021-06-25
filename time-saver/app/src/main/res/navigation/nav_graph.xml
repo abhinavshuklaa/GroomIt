@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.avenger.timesaver.ui.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/nearByFragment"
+        android:name="com.avenger.timesaver.ui.NearByFragment"
+        android:label="fragment_near_by"
+        tools:layout="@layout/fragment_near_by" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.avenger.timesaver.ui.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="com.avenger.timesaver.ui.ShopFragment"
+        android:label="fragment_shop"
+        tools:layout="@layout/fragment_shop" />
+    <fragment
+        android:id="@+id/tipsFragment"
+        android:name="com.avenger.timesaver.ui.TipsFragment"
+        android:label="fragment_tips"
+        tools:layout="@layout/fragment_tips" />
+</navigation>

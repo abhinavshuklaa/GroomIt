@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/tipsFragment"
+        android:icon="@drawable/ic_noun_profile_2807655"
+        android:title="Beauty Tips" />
+
+
+    <item
+        android:id="@+id/nearByFragment"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="Near By" />
+
+
+    <item
+        android:id="@+id/shopFragment"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="Shop" />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_noun_profile_2807655"
+        android:title="Profile" />
+
+
+</menu>

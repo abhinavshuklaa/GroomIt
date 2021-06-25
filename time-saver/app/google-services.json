@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1023507524393",
+    "project_id": "times-d3787",
+    "storage_bucket": "times-d3787.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023507524393:android:5cf37693e5b28802716538",
+        "android_client_info": {
+          "package_name": "com.avenger.timesaver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023507524393-kjgbhp14fnpevl7u3perii0eu5lilpae.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.avenger.timesaver",
+            "certificate_hash": "8d65201670f6c9f83977a060fcfee82d5c9bdfca"
+          }
+        },
+        {
+          "client_id": "1023507524393-5bk85ksc4tav494ih695e7re9mupffb5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAm3ajsWXV9F9GvrKs7l-RVuj9rUbz6ZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023507524393-5bk85ksc4tav494ih695e7re9mupffb5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

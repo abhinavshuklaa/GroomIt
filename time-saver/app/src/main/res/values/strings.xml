@@ -15,5 +15,6 @@
     <string name="title_activity_maps">Map</string>
     <string name="please_enter_your_shop_details"><u>
         Please Enter Your Shop Details</u></string>
+    <string name="set_the_date">Set the Date</string>
 
 </resources>

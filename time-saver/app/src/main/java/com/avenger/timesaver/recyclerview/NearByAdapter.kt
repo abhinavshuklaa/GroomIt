@@ -42,9 +42,9 @@ class NearByViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     init {
         cardItem = itemView.findViewById<CardView>(R.id.nearByItemLayout)
-        nearByItemIcon = itemView.findViewById<ImageView>(R.id.nearByItemIcon)
-        nearByItemTitle = itemView.findViewById<TextView>(R.id.nearByItemTitle)
-        subTitle = itemView.findViewById<TextView>(R.id.subTitle)
+        nearByItemIcon = itemView.findViewById<ImageView>(R.id.serviceItemImage)
+        nearByItemTitle = itemView.findViewById<TextView>(R.id.serviceItemTitle)
+        subTitle = itemView.findViewById<TextView>(R.id.serviceSubTitle)
         distance = itemView.findViewById<TextView>(R.id.nearByDistance)
     }
 

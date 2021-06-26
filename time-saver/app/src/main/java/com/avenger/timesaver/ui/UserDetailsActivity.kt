@@ -13,8 +13,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.avenger.timesaver.MainActivity
 import com.avenger.timesaver.R
+import com.avenger.timesaver.interfaces.OnServiceSelectListener
 import com.avenger.timesaver.localdatabases.LocalKeys
 import com.avenger.timesaver.localdatabases.PreferenceHelper
+import com.avenger.timesaver.models.ShopServicesModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -39,7 +41,7 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback,
 
     var spinner: Spinner? = null
     var textView_msg: TextView? = null
-
+    private val selectedServiceList: ArrayList<ShopServicesModel> = ArrayList()
     private var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -89,8 +91,8 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback,
             gender = et_password.text.toString()
             address = etLastname.text.toString()
             contact_number = et_repassword.text.toString()
-            first_name=et_name.text.toString()
-            lastname=etLastname.text.toString()
+            first_name = et_name.text.toString()
+            lastname = etLastname.text.toString()
 
             saveUserDetails(userid, "gender", gender)
             saveUserDetails(userid, "address", address)
@@ -249,9 +251,9 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback,
         }
     }
 
-
     private fun startMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     private fun updatePreferences(gender: String) {

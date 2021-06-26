@@ -9,7 +9,6 @@ import com.avenger.timesaver.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-
 class TipsFragment : Fragment() {
 
     override fun onCreateView(

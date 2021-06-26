@@ -2,6 +2,7 @@ package com.avenger.timesaver.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -58,6 +59,8 @@ class NearByFragment : Fragment(), OnMapReadyCallback, CameraMoverInterface {
         private var locationPermissionGranted = false
 
         private const val KEY_CAMERA_POSITION = "camera_position"
+
+        var lastShop: Shop? = null
 
     }
 
@@ -311,6 +314,11 @@ class NearByFragment : Fragment(), OnMapReadyCallback, CameraMoverInterface {
             CameraUpdateFactory
                 .newLatLngZoom(LatLng(ll[0].toDouble(), ll[1].toDouble()), DEFAULT_ZOOM.toFloat())
         )
+    }
+
+    override fun startStoreDetails(shop: Shop) {
+        lastShop = shop
+        startActivity(Intent(view?.context, StoreDetailsActivity::class.java))
     }
 
 }

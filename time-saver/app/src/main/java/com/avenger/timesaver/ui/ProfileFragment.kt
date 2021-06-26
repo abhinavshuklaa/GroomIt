@@ -26,7 +26,6 @@ class ProfileFragment : Fragment() {
     }
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        view.findViewById<Button>(R.id.addNewShop).setOnClickListener {
@@ -34,6 +33,10 @@ class ProfileFragment : Fragment() {
 //        }
         tvRecentAppointments.setOnClickListener {
             //launch a fragment which has details from firebase with an option to leave feedback and on click of that launch feedback form
+        }
+
+        view.findViewById<Button>(R.id.btnAddShopDetails).setOnClickListener {
+            startActivity(Intent(view.context, AddStore::class.java))
         }
 
 //        setDarkModeSwitch(view)

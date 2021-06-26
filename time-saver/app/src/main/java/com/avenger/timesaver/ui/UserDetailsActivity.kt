@@ -52,11 +52,9 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback,
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
         private var locationPermissionGranted = false
 
-
         private const val KEY_CAMERA_POSITION = "camera_position"
 
     }
-
 
     var gender = "Male"
     var address = "Meerut"
@@ -64,7 +62,6 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback,
     var lastname = "shukla"
     var location = " "
     var contact_number = "9191919191"
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,8 +101,6 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback,
             updatePreferences(gender)
             startMainActivity()
         }
-
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -118,33 +113,22 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback,
     override fun onMapReady(map: GoogleMap) {
         this.map = map
 
-        // [START_EXCLUDE]
-        // [START map_current_place_set_info_window_adapter]
-        // Use a custom info window adapter to handle multiple lines of text in the
-        // info window contents.
         map.setOnMapClickListener(OnMapClickListener { latLng -> // Creating a marker
             val markerOptions = MarkerOptions()
 
-            // Setting the position for the marker
             markerOptions.position(latLng)
             location = latLng.latitude.toString() + ":" + latLng.longitude.toString()
-            // Setting the title for the marker.
-            // This will be displayed on taping the marker
             markerOptions.title(latLng.latitude.toString() + " : " + latLng.longitude)
 
-            // Clears the previously touched position
             map.clear()
 
-            // Animating to the touched position
             map.animateCamera(CameraUpdateFactory.newLatLng(latLng))
 
-            // Placing a marker on the touched position
             map.addMarker(markerOptions)
         })
         getLocationPermission()
 
         updateLocationUI()
-
         // Get the current location of the device and set the position of the map.
         getDeviceLocation()
     }
@@ -297,6 +281,7 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback,
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
+
     }
 
 

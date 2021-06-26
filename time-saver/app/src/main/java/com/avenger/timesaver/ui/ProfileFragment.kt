@@ -8,6 +8,7 @@ import android.widget.Switch
 import androidx.fragment.app.Fragment
 import com.avenger.timesaver.R
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 
 @AndroidEntryPoint
@@ -26,6 +27,10 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        tvRecentAppointments.setOnClickListener {
+            //launch a fragment which has details from firebase with an option to leave feedback and on click of that launch feedback form
+        }
+
 //        setDarkModeSwitch(view)
     }
 

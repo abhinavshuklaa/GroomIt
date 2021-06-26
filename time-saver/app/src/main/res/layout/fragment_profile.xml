@@ -61,6 +61,7 @@
             android:text="@string/dark_mode" />
 
         <TextView
+            android:id="@+id/tvRecentAppointments"
             style="@style/viewParent.headerText.settingsTextIcon"
             android:drawableStart="@drawable/ic_baseline_book_online_24"
             android:text="@string/recent_appointments"

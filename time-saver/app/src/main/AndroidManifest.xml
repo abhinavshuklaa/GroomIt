@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.avenger.timesaver">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,6 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TimeSaver">
+        <activity android:name=".ui.AddStore"></activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAXSXX1QZFl01A30-t-ZLiTapeEhkduXmw" />
+
         <activity android:name=".ui.UserDetailsActivity" />
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.SpalshActivity">
@@ -25,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity">
-
+            1`
         </activity>
     </application>
 

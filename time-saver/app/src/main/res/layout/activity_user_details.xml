@@ -6,4 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.UserDetailsActivity">
 
+    <Button
+        android:id="@+id/updateUserDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:text="UpdateUserDetails"
+        app:layout_constraintBottom_toBottomOf="parent"
+         />
+
+    <fragment
+        android:id="@+id/addstoremap"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

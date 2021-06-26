@@ -4,18 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/contentBodyColor">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="30dp">
+
         <TextView
             style="@style/viewParent.headerText"
             android:fontFamily="@font/open_sans"
             android:text="@string/profile" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profileCircleImageView"
                 android:layout_width="60dp"
@@ -25,6 +29,7 @@
                 android:src="@drawable/my_pic"
                 app:civ_border_color="@color/black"
                 app:civ_border_width="2dp" />
+
             <TextView
                 android:id="@+id/usernameTextView"
                 style="@style/viewParent.headerText"
@@ -32,6 +37,7 @@
                 android:layout_toEndOf="@id/profileCircleImageView"
                 android:text="@string/abhinav_shukla"
                 android:textSize="18sp" />
+
             <TextView
                 style="@style/viewParent.headerText"
                 android:layout_below="@id/usernameTextView"
@@ -39,52 +45,64 @@
                 android:text="@string/edit_personal_details"
                 android:textColor="#5D5C5C"
                 android:textSize="16sp" />
+
             <com.google.android.material.imageview.ShapeableImageView
                 style="@style/viewParent"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_more" />
         </RelativeLayout>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAddShopDetails"
             style="@style/settingsText"
-            app:iconPadding="20dp"
+            android:text="Add Your Shop Details"
             android:textColor="@color/white"
-            android:text="Add Your Shop Details" />
+            app:icon="@drawable/ic_baseline_add_business_24"
+            app:iconPadding="20dp" />
+
         <TextView
             android:id="@+id/tvRecentAppointments"
             style="@style/viewParent.headerText.settingsTextIcon"
             android:drawableStart="@drawable/ic_baseline_book_online_24"
             android:text="@string/recent_appointments"
             app:drawableTint="@color/black" />
+
         <TextView
             style="@style/viewParent.headerText.settingsMiniTitle"
             android:text="@string/profile" />
+
         <TextView
             style="@style/viewParent.headerText.settingsTextIcon"
             android:drawableStart="@drawable/ic_edit_profile"
             android:text="@string/edit_profile" />
+
         <TextView
             style="@style/viewParent.headerText.settingsTextIcon"
             android:layout_marginTop="10dp"
             android:text="@string/change_password"
             app:drawableLeftCompat="@drawable/ic_edit_password" />
+
         <TextView
             style="@style/viewParent.headerText.settingsMiniTitle"
             android:text="@string/notifications" />
+
         <com.google.android.material.switchmaterial.SwitchMaterial
             style="@style/settingsText"
             android:checked="true"
             android:drawableStart="@drawable/ic_notifications"
             android:text="@string/notifications"
             android:textColorHighlight="@color/white" />
+
         <TextView
             style="@style/viewParent.headerText.settingsMiniTitle"
             android:text="@string/regional" />
+
         <TextView
             style="@style/viewParent.headerText.settingsTextIcon"
             android:text="@string/language"
             app:drawableLeftCompat="@drawable/ic_languages" />
+
         <TextView
             style="@style/viewParent.headerText.settingsTextIcon"
             android:text="@string/logout"

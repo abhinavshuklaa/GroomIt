@@ -1,12 +1,11 @@
 package com.avenger.timesaver.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.avenger.timesaver.MainActivity
 import com.avenger.timesaver.R
 import com.avenger.timesaver.localdatabases.LocalKeys
@@ -103,11 +102,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveUser(account: GoogleSignInAccount) {
-
         val database = FirebaseDatabase.getInstance()
-
         val dbUsers = database.getReference("users").child(account.id!!)
-
         dbUsers.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -129,42 +125,65 @@ class LoginActivity : AppCompatActivity() {
                     FirebaseMessaging.getInstance().token.addOnCompleteListener {
                         if (it.isSuccessful) {
                             val token: String = Objects.requireNonNull<String>(it.result)
-                            val user =
-                                UserModel(
-                                    id = account.id.toString(),
-                                    email = account.email,
-                                    firstName = account.displayName,
-                                    lastName = "",
-                                    gender = "",
-                                    profilePic = account.photoUrl.toString(),
-                                    contactNumber = "",
-                                    location = "",
-                                    address = "",
-                                    token = token
-                                )
-
-                            dbUsers.setValue(user)
-                                .addOnCompleteListener { it_inside ->
-                                    if (it_inside.isSuccessful) {
-                                        Toast.makeText(
-                                            this@LoginActivity,
-                                            "token saved",
-                                            Toast.LENGTH_SHORT
-                                        )
-                                            .show()
+                            if (account.photoUrl != null) {
+                                val user =
+                                    UserModel(
+                                        id = account.id.toString(),
+                                        email = account.email,
+                                        firstName = account.displayName,
+                                        lastName = "",
+                                        gender = "",
+                                        profilePic = account.photoUrl.toString(),
+                                        contactNumber = "",
+                                        location = "",
+                                        address = "",
+                                        token = token
+                                    )
+                                dbUsers.setValue(user)
+                                    .addOnCompleteListener { it_inside ->
+                                        if (it_inside.isSuccessful) {
+                                            Toast.makeText(
+                                                this@LoginActivity,
+                                                "token saved",
+                                                Toast.LENGTH_SHORT
+                                            )
+                                                .show()
+                                        }
                                     }
-                                }
+                            } else {
+                                val user =
+                                    UserModel(
+                                        id = account.id.toString(),
+                                        email = account.email,
+                                        firstName = account.displayName,
+                                        lastName = "",
+                                        gender = "",
+                                        contactNumber = "",
+                                        location = "",
+                                        address = "",
+                                        token = token,
+                                        profilePic = ""
+                                    )
+                                dbUsers.setValue(user)
+                                    .addOnCompleteListener { it_inside ->
+                                        if (it_inside.isSuccessful) {
+                                            Toast.makeText(
+                                                this@LoginActivity,
+                                                "token saved",
+                                                Toast.LENGTH_SHORT
+                                            )
+                                                .show()
+                                        }
+                                    }
+                            }
                         }
                     }
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-
             }
-
         })
-
     }
 
 }

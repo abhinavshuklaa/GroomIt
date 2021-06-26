@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.avenger.timesaver.Adapter.TipsAdapter
+import com.avenger.timesaver.adapter.TipsAdapter
 import com.avenger.timesaver.R
 import com.avenger.timesaver.interfaces.tipsItemClickedListener
 import com.avenger.timesaver.models.TipsModel
@@ -131,7 +131,7 @@ class TipsFragment : Fragment(), tipsItemClickedListener {
 
     }
 
-    override fun onItemClicked(position: Int) {
+    override fun onItemClicked(position: Int, content: String) {
         Toast.makeText(context, "Response : $position", Toast.LENGTH_SHORT).show()
 
     }

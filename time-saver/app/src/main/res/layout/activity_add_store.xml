@@ -39,7 +39,7 @@
                     android:layout_margin="10dp"
                     android:fontFamily="@font/open_sans"
                     android:textStyle="bold"
-                    android:text="Please Enter Your Shop Details"
+                    android:text="@string/please_enter_your_shop_details"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="24sp" />

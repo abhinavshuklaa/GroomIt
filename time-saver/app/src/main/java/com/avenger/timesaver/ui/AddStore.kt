@@ -2,23 +2,21 @@ package com.avenger.timesaver.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.pm.PackageManager
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.avenger.timesaver.MainActivity
 import com.avenger.timesaver.R
 import com.avenger.timesaver.localdatabases.LocalKeys
 import com.avenger.timesaver.localdatabases.PreferenceHelper
+import com.avenger.timesaver.models.Shop
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.GoogleMap.OnMapClickListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
@@ -27,11 +25,11 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.firebase.database.FirebaseDatabase
-import dagger.hilt.android.AndroidEntryPoint
+
+class AddStore : AppCompatActivity(), OnMapReadyCallback {
 
 
-@AndroidEntryPoint
-class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
+    private var location: String = "123"
 
 
     private var map: GoogleMap? = null
@@ -40,57 +38,87 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     private val defaultLocation = LatLng(-33.8523341, 151.2106085)
     private var locationPermissionGranted = false
 
+
+    var id = java.util.UUID.randomUUID().toString() + (Math.random() * 201).toInt().toString()
+    val name = "Shop Name"
+    val address = "#3/4, 2nd Street, 4th Main, RR Nagar"
+    val city = "Bangalore"
+    val state = "Karnataka"
+    val pincode = "560091"
+    val contact_1 = "9632174165"
+    val contact_2 = "8632174165"
+    val services = "23"
+    val styles = "12"
+
+
     companion object {
-        private val TAG = UserDetailsActivity::class.java.simpleName
+        private val TAG = AddStore::class.java.simpleName
         private const val DEFAULT_ZOOM = 15
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
         private var locationPermissionGranted = false
-
 
         private const val KEY_CAMERA_POSITION = "camera_position"
 
     }
 
 
-    val gender = "male"
-    val address = "bangalore"
-    val first_name = "Vinod"
-    val lastname = "Kumar"
-    var location = "123456.324435"
-    val contact_number = "9631741582"
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_details)
+        setContentView(R.layout.activity_add_store)
+        PreferenceHelper.getSharedPreferences(this)
+
+
+        getLocationPermission()
         if (savedInstanceState != null) {
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION)
         }
-        PreferenceHelper.getSharedPreferences(this)
-        val userid = PreferenceHelper.readStringFromPreference(LocalKeys.KEY_USER_GOOGLE_ID)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         val mapFragment: SupportMapFragment? = supportFragmentManager
             .findFragmentById(R.id.addstoremap) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
         showCurrentPlace()
-
-        findViewById<Button>(R.id.updateUserDetails).setOnClickListener {
-            saveUserDetails(userid, "gender", gender)
-            saveUserDetails(userid, "address", address)
-            saveUserDetails(userid, "firstName", first_name)
-            saveUserDetails(userid, "lastName", lastname)
-            saveUserDetails(userid, "location", location)
-            saveUserDetails(userid, "contactNumber", contact_number)
-            updatePreferences(gender)
-            startMainActivity()
+        findViewById<Button>(R.id.createStore).setOnClickListener {
+            createStoreInMap()
         }
 
+    }
 
+
+    fun getUniqueId(): String {
+        return System.currentTimeMillis()
+            .toString() + (Math.random() * 201).toInt().toString()
+    }
+
+    private fun createStoreInMap() {
+        val ownerId = PreferenceHelper.readStringFromPreference(LocalKeys.KEY_USER_GOOGLE_ID)
+        FirebaseDatabase.getInstance().getReference("stores").child(getUniqueId())
+            .setValue(
+                Shop(
+                    getUniqueId(),
+                    name,
+                    ownerId,
+                    address,
+                    city,
+                    state,
+                    pincode,
+                    location,
+                    contact_1,
+                    contact_2,
+                    services,
+                    styles
+                )
+            ).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Log.d("TAG", "createStoreInMap: Success")
+                } else {
+                    Log.d("TAG", "createStoreInMap: Failed")
+                }
+            }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         map?.let { map ->
-            outState.putParcelable(KEY_CAMERA_POSITION, map.cameraPosition)
+            outState.putParcelable(AddStore.KEY_CAMERA_POSITION, map.cameraPosition)
         }
         super.onSaveInstanceState(outState)
     }
@@ -102,7 +130,7 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         // [START map_current_place_set_info_window_adapter]
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
-        map.setOnMapClickListener(OnMapClickListener { latLng -> // Creating a marker
+        map.setOnMapClickListener(GoogleMap.OnMapClickListener { latLng -> // Creating a marker
             val markerOptions = MarkerOptions()
 
             // Setting the position for the marker
@@ -138,11 +166,11 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
                         // Set the map's camera position to the current location of the device.
 
                     } else {
-                        Log.d(TAG, "Current location is null. Using defaults.")
-                        Log.e(TAG, "Exception: %s", task.exception)
+                        Log.d("TAG", "Current location is null. Using defaults.")
+                        Log.e("TAG", "Exception: %s", task.exception)
                         map?.moveCamera(
                             CameraUpdateFactory
-                                .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat())
+                                .newLatLngZoom(defaultLocation, AddStore.DEFAULT_ZOOM.toFloat())
                         )
                         map?.uiSettings?.isMyLocationButtonEnabled = false
                     }
@@ -169,7 +197,7 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         } else {
             ActivityCompat.requestPermissions(
                 this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+                AddStore.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
             )
         }
     }
@@ -182,7 +210,7 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         locationPermissionGranted = false
         when (requestCode) {
-            PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
+            AddStore.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() &&
@@ -212,7 +240,7 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             // are the best match for the device's current location.
         } else {
             // The user has not granted permission.
-            Log.i(TAG, "The user did not grant location permission.")
+            Log.i("TAG", "The user did not grant location permission.")
 
             // Add a default marker, because the user hasn't selected a place.
             map?.addMarker(
@@ -244,27 +272,5 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             Log.e("Exception: %s", e.message, e)
         }
     }
-
-
-    private fun startMainActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
-    }
-
-    private fun updatePreferences(gender: String) {
-        PreferenceHelper.writeStringToPreference(LocalKeys.KEY_USER_GENDER, gender)
-        PreferenceHelper.writeBooleanToPreference(LocalKeys.KEY_IS_USER_DETAILS_FILLED, true)
-    }
-
-    private fun saveUserDetails(userid: String, key: String, value: String) {
-        FirebaseDatabase.getInstance().getReference("users").child(userid).child(key)
-            .setValue(value).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Log.d("TAG", "saveUserDetails: $key")
-                } else {
-                    Log.d("TAG", "saveUserDetails: Failed $key")
-                }
-            }
-    }
-
 
 }

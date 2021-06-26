@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">TimeSaver</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logout">Logout</string>
     <string name="language">Language</string>
@@ -12,4 +11,6 @@
     <string name="abhinav_shukla">Abhinav Shukla</string>
     <string name="edit_personal_details">Edit personal details</string>
     <string name="notifications">Notifications</string>
+    <string name="recent_appointments">Recent Appointments</string>
+
 </resources>

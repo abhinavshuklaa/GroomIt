@@ -35,7 +35,7 @@
     <style name="viewParent.headerText">
         <item name="android:textColor">@color/contentTextColor</item>
         <item name="android:fontFamily">@font/open_sans</item>
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -57,4 +57,5 @@
     <style name="viewParent.headerText.settingsTextIcon" parent="settingsText">
         <item name="android:drawableRight">@drawable/ic_more</item>
     </style>
+
 </resources>

@@ -61,8 +61,15 @@
             android:text="@string/dark_mode" />
 
         <TextView
+            style="@style/viewParent.headerText.settingsTextIcon"
+            android:drawableStart="@drawable/ic_baseline_book_online_24"
+            android:text="@string/recent_appointments"
+            app:drawableTint="@color/black" />
+
+        <TextView
             style="@style/viewParent.headerText.settingsMiniTitle"
             android:text="@string/profile" />
+
 
         <TextView
             style="@style/viewParent.headerText.settingsTextIcon"
@@ -83,7 +90,8 @@
             style="@style/settingsText"
             android:checked="true"
             android:drawableStart="@drawable/ic_notifications"
-            android:text="@string/notifications" />
+            android:text="@string/notifications"
+            android:textColorHighlight="@color/white" />
 
         <TextView
             style="@style/viewParent.headerText.settingsMiniTitle"

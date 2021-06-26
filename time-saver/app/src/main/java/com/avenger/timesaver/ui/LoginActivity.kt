@@ -129,31 +129,60 @@ class LoginActivity : AppCompatActivity() {
                     FirebaseMessaging.getInstance().token.addOnCompleteListener {
                         if (it.isSuccessful) {
                             val token: String = Objects.requireNonNull<String>(it.result)
-                            val user =
-                                UserModel(
-                                    id = account.id.toString(),
-                                    email = account.email,
-                                    firstName = account.displayName,
-                                    lastName = "",
-                                    gender = "",
-                                    profilePic = account.photoUrl.toString(),
-                                    contactNumber = "",
-                                    location = "",
-                                    address = "",
-                                    token = token
-                                )
+                            if (account.photoUrl != null) {
+                                val user =
+                                    UserModel(
+                                        id = account.id.toString(),
+                                        email = account.email,
+                                        firstName = account.displayName,
+                                        lastName = "",
+                                        gender = "",
+                                        profilePic = account.photoUrl.toString(),
+                                        contactNumber = "",
+                                        location = "",
+                                        address = "",
+                                        token = token
+                                    )
 
-                            dbUsers.setValue(user)
-                                .addOnCompleteListener { it_inside ->
-                                    if (it_inside.isSuccessful) {
-                                        Toast.makeText(
-                                            this@LoginActivity,
-                                            "token saved",
-                                            Toast.LENGTH_SHORT
-                                        )
-                                            .show()
+                                dbUsers.setValue(user)
+                                    .addOnCompleteListener { it_inside ->
+                                        if (it_inside.isSuccessful) {
+                                            Toast.makeText(
+                                                this@LoginActivity,
+                                                "token saved",
+                                                Toast.LENGTH_SHORT
+                                            )
+                                                .show()
+                                        }
                                     }
-                                }
+                            }
+                            else{
+                                val user =
+                                    UserModel(
+                                        id = account.id.toString(),
+                                        email = account.email,
+                                        firstName = account.displayName,
+                                        lastName = "",
+                                        gender = "",
+                                        contactNumber = "",
+                                        location = "",
+                                        address = "",
+                                        token = token,
+                                        profilePic = ""
+                                    )
+
+                                dbUsers.setValue(user)
+                                    .addOnCompleteListener { it_inside ->
+                                        if (it_inside.isSuccessful) {
+                                            Toast.makeText(
+                                                this@LoginActivity,
+                                                "token saved",
+                                                Toast.LENGTH_SHORT
+                                            )
+                                                .show()
+                                        }
+                                    }
+                            }
                         }
                     }
                 }

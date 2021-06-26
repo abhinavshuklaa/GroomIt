@@ -2,6 +2,7 @@ package com.avenger.timesaver.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -30,16 +31,13 @@ class AddStore : AppCompatActivity(), OnMapReadyCallback {
 
 
     private var location: String = "123"
-
-
     private var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val defaultLocation = LatLng(-33.8523341, 151.2106085)
     private var locationPermissionGranted = false
 
-
-    var id = java.util.UUID.randomUUID().toString() + (Math.random() * 201).toInt().toString()
+    var id = "0"
     val name = "Shop Name"
     val address = "#3/4, 2nd Street, 4th Main, RR Nagar"
     val city = "Bangalore"
@@ -56,9 +54,7 @@ class AddStore : AppCompatActivity(), OnMapReadyCallback {
         private const val DEFAULT_ZOOM = 15
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
         private var locationPermissionGranted = false
-
         private const val KEY_CAMERA_POSITION = "camera_position"
-
     }
 
 
@@ -66,7 +62,6 @@ class AddStore : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_store)
         PreferenceHelper.getSharedPreferences(this)
-
 
         getLocationPermission()
         if (savedInstanceState != null) {
@@ -80,13 +75,12 @@ class AddStore : AppCompatActivity(), OnMapReadyCallback {
         findViewById<Button>(R.id.createStore).setOnClickListener {
             createStoreInMap()
         }
-
     }
 
-
     fun getUniqueId(): String {
-        return System.currentTimeMillis()
+        id = System.currentTimeMillis()
             .toString() + (Math.random() * 201).toInt().toString()
+        return id
     }
 
     private fun createStoreInMap() {
@@ -94,12 +88,13 @@ class AddStore : AppCompatActivity(), OnMapReadyCallback {
         FirebaseDatabase.getInstance().getReference("stores").child(getUniqueId())
             .setValue(
                 Shop(
-                    getUniqueId(),
+                    id,
                     name,
                     ownerId,
                     address,
                     city,
                     state,
+                    null,
                     pincode,
                     location,
                     contact_1,
@@ -110,10 +105,18 @@ class AddStore : AppCompatActivity(), OnMapReadyCallback {
             ).addOnCompleteListener {
                 if (it.isSuccessful) {
                     Log.d("TAG", "createStoreInMap: Success")
+                    gotoUploadImageActivity(id)
                 } else {
                     Log.d("TAG", "createStoreInMap: Failed")
                 }
             }
+    }
+
+    private fun gotoUploadImageActivity(id: String) {
+        val i = Intent(this, UploadImagesActivity::class.java)
+        i.putExtra("storeId", id)
+        startActivity(i)
+        this.finish()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

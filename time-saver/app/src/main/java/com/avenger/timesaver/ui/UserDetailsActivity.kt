@@ -6,7 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -28,11 +29,16 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_user_details.*
 
 
 @AndroidEntryPoint
-class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
+class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback,
+    AdapterView.OnItemSelectedListener {
+    var genders_1 = arrayOf("Male", "Female", "Others")
 
+    var spinner: Spinner? = null
+    var textView_msg: TextView? = null
 
     private var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
@@ -52,17 +58,25 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
-    val gender = "male"
-    val address = "bangalore"
-    val first_name = "Vinod"
-    val lastname = "Kumar"
-    var location = "123456.324435"
-    val contact_number = "9631741582"
+    var gender = "Male"
+    var address = "Meerut"
+    var first_name = "abhinav"
+    var lastname = "shukla"
+    var location = " "
+    var contact_number = "9191919191"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_details)
+        textView_msg = this.tvSelectedGender
+        spinner = this.spinner_1
+
+        spinner!!.setOnItemSelectedListener(this)
+        val aa = ArrayAdapter(this, android.R.layout.simple_spinner_item, genders_1)
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner!!.setAdapter(aa)
+
         if (savedInstanceState != null) {
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION)
         }
@@ -75,6 +89,12 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         showCurrentPlace()
 
         findViewById<Button>(R.id.updateUserDetails).setOnClickListener {
+            gender = et_password.text.toString()
+            address = etLastname.text.toString()
+            contact_number = et_repassword.text.toString()
+            first_name=et_name.text.toString()
+            lastname=etLastname.text.toString()
+
             saveUserDetails(userid, "gender", gender)
             saveUserDetails(userid, "address", address)
             saveUserDetails(userid, "firstName", first_name)
@@ -264,6 +284,19 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
                     Log.d("TAG", "saveUserDetails: Failed $key")
                 }
             }
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        Toast.makeText(
+            getApplicationContext(),
+            "Selected Gender: " + genders_1[p2],
+            Toast.LENGTH_SHORT
+        ).show()
+        textView_msg!!.text = genders_1[p2]
+
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
     }
 
 

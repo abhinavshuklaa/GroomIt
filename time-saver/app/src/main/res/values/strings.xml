@@ -12,5 +12,6 @@
     <string name="edit_personal_details">Edit personal details</string>
     <string name="notifications">Notifications</string>
     <string name="recent_appointments">Recent Appointments</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

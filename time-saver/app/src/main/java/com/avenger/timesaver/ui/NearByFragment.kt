@@ -13,15 +13,20 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.avenger.timesaver.R
+import com.avenger.timesaver.interfaces.CameraMoverInterface
 import com.avenger.timesaver.localdatabases.PreferenceHelper
 import com.avenger.timesaver.models.Shop
+import com.avenger.timesaver.recyclerview.NearByAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -33,10 +38,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
-
-class NearByFragment : Fragment(), OnMapReadyCallback {
+class NearByFragment : Fragment(), OnMapReadyCallback, CameraMoverInterface {
 
     private var location: String = "123"
 
@@ -58,7 +61,6 @@ class NearByFragment : Fragment(), OnMapReadyCallback {
 
     }
 
-    private val googleMap: GoogleMap? = null
     private val options = MarkerOptions()
     private val latlngs: ArrayList<LatLng> = ArrayList()
     override fun onCreateView(
@@ -83,7 +85,6 @@ class NearByFragment : Fragment(), OnMapReadyCallback {
             .findFragmentById(R.id.nearbymap) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
         showCurrentPlace()
-
 
     }
 
@@ -111,7 +112,6 @@ class NearByFragment : Fragment(), OnMapReadyCallback {
         // Get the current location of the device and set the position of the map.
         getDeviceLocation()
         getAllNearByStores(map)
-
     }
 
     @RequiresApi(Build.VERSION_CODES.P)
@@ -130,7 +130,6 @@ class NearByFragment : Fragment(), OnMapReadyCallback {
                             CameraUpdateFactory
                                 .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat())
                         )
-                        map?.uiSettings?.isMyLocationButtonEnabled = false
                     }
                 }
             }
@@ -221,6 +220,11 @@ class NearByFragment : Fragment(), OnMapReadyCallback {
                     storeList.clear()
                     snapshot.children.forEach {
                         try {
+                            val images = ArrayList<String?>()
+                            images.clear()
+                            it.child("Images").children.forEach {
+                                images.add(it.value.toString())
+                            }
                             storeList.add(
                                 Shop(
                                     it.child("id").value.toString(),
@@ -229,6 +233,7 @@ class NearByFragment : Fragment(), OnMapReadyCallback {
                                     it.child("addressLine").value.toString(),
                                     it.child("city").value.toString(),
                                     it.child("state").value.toString(),
+                                    images,
                                     it.child("pinCode").value.toString(),
                                     it.child("location").value.toString(),
                                     it.child("contact_no1").value.toString(),
@@ -243,7 +248,8 @@ class NearByFragment : Fragment(), OnMapReadyCallback {
                         } catch (e: Exception) {
                             Log.d(TAG, "onDataChange: error")
                         }
-                        setNearByStores(map!!,storeList)
+                        setNearByStores(map!!, storeList)
+                        renderList(storeList)
                     }
                 }
 
@@ -255,12 +261,24 @@ class NearByFragment : Fragment(), OnMapReadyCallback {
 
     }
 
-    private fun setNearByStores(googleMap: GoogleMap,storeList: java.util.ArrayList<Shop>) {
+    private fun renderList(storeList: java.util.ArrayList<Shop>) {
+        val recyclerView = view?.findViewById<RecyclerView>(R.id.nearByRecyclerview)
+        recyclerView?.layoutManager = LinearLayoutManager(view?.context)
+        val adapter = NearByAdapter(storeList, this)
+        recyclerView?.adapter = adapter
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun setNearByStores(googleMap: GoogleMap, storeList: java.util.ArrayList<Shop>) {
         var x = 0;
         for (point in latlngs) {
             options.position(point)
             options.title(storeList[x].name.toString())
             options.snippet(storeList[x++].addressLine.toString())
+            options.icon(
+                BitmapDescriptorFactory
+                    .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)
+            )
             googleMap.addMarker(options)
         }
 
@@ -283,6 +301,16 @@ class NearByFragment : Fragment(), OnMapReadyCallback {
         } catch (e: SecurityException) {
             Log.e("Exception: %s", e.message, e)
         }
+    }
+
+    override fun moveCamera(shop: Shop) {
+
+        val ll = shop.location.toString().split(":")
+
+        map?.moveCamera(
+            CameraUpdateFactory
+                .newLatLngZoom(LatLng(ll[0].toDouble(), ll[1].toDouble()), DEFAULT_ZOOM.toFloat())
+        )
     }
 
 }

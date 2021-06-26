@@ -150,7 +150,8 @@ class LoginActivity : AppCompatActivity() {
                                                 .show()
                                         }
                                     }
-                            } else {
+                            }
+                            else{
                                 val user =
                                     UserModel(
                                         id = account.id.toString(),
@@ -180,10 +181,8 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
             }
         })
     }
-
 }

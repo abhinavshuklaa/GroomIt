@@ -1,7 +1,8 @@
 package com.avenger.timesaver.models
 
 class ShopServicesModel(
-    val shopId:String?,
+    val id: Int?,
+    val img: Int?,
     val service: String?,
-    val price: Long?,
+    val price: Int,
 )

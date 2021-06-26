@@ -24,7 +24,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:context=".MapsActivity" />
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,18 +31,18 @@
                 android:padding="10dp"
                 tools:context=".ui.UserDetailsActivity">
 
-
                 <TextView
                     android:id="@+id/tv_logo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="10dp"
+                    android:layout_margin="10dp"
                     android:fontFamily="@font/open_sans"
+                    android:textStyle="bold"
                     android:text="@string/please_enter_your_shop_details"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="22sp" />
+                    android:textSize="24sp" />
 
                 <EditText
                     android:id="@+id/etShopName"
@@ -100,7 +99,6 @@
                     android:background="@drawable/et_custom"
                     android:fontFamily="@font/open_sans"
                     android:hint="State"
-                    android:inputType="textPassword"
                     android:padding="12dp"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
@@ -111,29 +109,14 @@
                     android:layout_height="40dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@drawable/et_custom"
                     android:fontFamily="@font/open_sans"
                     android:hint="PinCode"
-                    android:inputType="textPassword"
-                    android:layout_marginBottom="10dp"
                     android:padding="12dp"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
-                <EditText
-                    android:id="@+id/etLocation"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/et_custom"
-                    android:fontFamily="@font/open_sans"
-                    android:hint="Location"
-                    android:inputType="textPassword"
-                    android:padding="12dp"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
 
                 <EditText
                     android:id="@+id/etShopContactNo_1"
@@ -145,7 +128,6 @@
                     android:background="@drawable/et_custom"
                     android:fontFamily="@font/open_sans"
                     android:hint="Contact no."
-                    android:inputType="textPassword"
                     android:padding="12dp"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
@@ -155,43 +137,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@drawable/et_custom"
                     android:fontFamily="@font/open_sans"
                     android:hint="Additional Contact no."
-                    android:inputType="textPassword"
                     android:padding="15dp"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
-
-                <EditText
-                    android:id="@+id/etServicesAvailable"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/et_custom"
-                    android:fontFamily="@font/open_sans"
-                    android:hint="Services Available at your shop(e.g Spa)"
-                    android:inputType="textPassword"
-                    android:padding="12dp"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
-
-                <EditText
-                    android:id="@+id/etStylesAvailableAtShop"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/et_custom"
-                    android:fontFamily="@font/open_sans"
-                    android:hint="Styles avaliable at shop"
-                    android:inputType="textPassword"
-                    android:padding="12dp"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 

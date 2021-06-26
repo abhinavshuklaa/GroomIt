@@ -2,11 +2,14 @@ package com.avenger.timesaver.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.avenger.timesaver.R
@@ -28,46 +31,65 @@ import com.google.firebase.database.FirebaseDatabase
 
 class AddStore : AppCompatActivity(), OnMapReadyCallback {
 
-
     private var location: String = "123"
-
-
     private var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val defaultLocation = LatLng(-33.8523341, 151.2106085)
     private var locationPermissionGranted = false
 
+    private lateinit var etName: EditText
+    private lateinit var etAddress: EditText
+    private lateinit var etCity: EditText
+    private lateinit var etState: EditText
+    private lateinit var etPincode: EditText
+    private lateinit var etContact1: EditText
+    private lateinit var etContact2: EditText
 
-    var id = java.util.UUID.randomUUID().toString() + (Math.random() * 201).toInt().toString()
-    val name = "Shop Name"
-    val address = "#3/4, 2nd Street, 4th Main, RR Nagar"
-    val city = "Bangalore"
-    val state = "Karnataka"
-    val pincode = "560091"
-    val contact_1 = "9632174165"
-    val contact_2 = "8632174165"
-    val services = "23"
-    val styles = "12"
+    var id = "0"
+    var name = "Shop Name"
+    var address = "#3/4, 2nd Street, 4th Main, RR Nagar"
+    var city = "Bangalore"
+    var state = "Karnataka"
+    var pincode = "560091"
+    var contact_1 = "9632174165"
+    var contact_2 = "8632174165"
+    var services = "23"
+    var styles = "12"
 
+    private fun initviews() {
+        etName = findViewById(R.id.etShopName)
+        etAddress = findViewById(R.id.etShopAddress)
+        etCity = findViewById(R.id.etShopCity)
+        etState = findViewById(R.id.etShopState)
+        etPincode = findViewById(R.id.etShopPinCode)
+        etContact1 = findViewById(R.id.etShopContactNo_1)
+        etContact2 = findViewById(R.id.etShopContactNo_2)
+    }
+
+    private fun getEditTextFieldData() {
+        name = etName.text.toString()
+        address = etAddress.text.toString()
+        city = etCity.text.toString()
+        state = etState.text.toString()
+        pincode = etPincode.text.toString()
+        contact_1 = etContact1.text.toString()
+        contact_2 = etContact2.text.toString()
+    }
 
     companion object {
         private val TAG = AddStore::class.java.simpleName
         private const val DEFAULT_ZOOM = 15
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
         private var locationPermissionGranted = false
-
         private const val KEY_CAMERA_POSITION = "camera_position"
-
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_store)
         PreferenceHelper.getSharedPreferences(this)
-
-
+        initviews()
         getLocationPermission()
         if (savedInstanceState != null) {
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION)
@@ -78,28 +100,36 @@ class AddStore : AppCompatActivity(), OnMapReadyCallback {
         mapFragment?.getMapAsync(this)
         showCurrentPlace()
         findViewById<Button>(R.id.createStore).setOnClickListener {
-            createStoreInMap()
+            if (location != "123") {
+                createStoreInMap()
+            } else {
+                Toast.makeText(this, "Please Select Shop Location", Toast.LENGTH_SHORT).show()
+            }
         }
-
     }
 
 
     fun getUniqueId(): String {
-        return System.currentTimeMillis()
+        id = System.currentTimeMillis()
             .toString() + (Math.random() * 201).toInt().toString()
+        return id
     }
 
     private fun createStoreInMap() {
+
+        getEditTextFieldData()
+
         val ownerId = PreferenceHelper.readStringFromPreference(LocalKeys.KEY_USER_GOOGLE_ID)
         FirebaseDatabase.getInstance().getReference("stores").child(getUniqueId())
             .setValue(
                 Shop(
-                    getUniqueId(),
+                    id,
                     name,
                     ownerId,
                     address,
                     city,
                     state,
+                    null,
                     pincode,
                     location,
                     contact_1,
@@ -110,10 +140,19 @@ class AddStore : AppCompatActivity(), OnMapReadyCallback {
             ).addOnCompleteListener {
                 if (it.isSuccessful) {
                     Log.d("TAG", "createStoreInMap: Success")
+                    gotoUploadImageActivity(id)
                 } else {
                     Log.d("TAG", "createStoreInMap: Failed")
                 }
             }
+    }
+
+
+    private fun gotoUploadImageActivity(id: String) {
+        val i = Intent(this, UploadImagesActivity::class.java)
+        i.putExtra("storeId", id)
+        startActivity(i)
+        this.finish()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

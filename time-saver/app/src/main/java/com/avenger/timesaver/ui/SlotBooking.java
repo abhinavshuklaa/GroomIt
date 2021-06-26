@@ -1,6 +1,7 @@
 package com.avenger.timesaver.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,9 +14,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.avenger.timesaver.R;
+import com.avenger.timesaver.models.ShopServicesModel;
 import com.razorpay.Checkout;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class SlotBooking extends AppCompatActivity implements SlotBooking_a {
     private static final String TAG = SlotBooking.class.getSimpleName();
@@ -25,14 +29,26 @@ public class SlotBooking extends AppCompatActivity implements SlotBooking_a {
     TimePicker picker;
     Button btnGet;
     TextView tvw;
+    String total = "0";
+    ArrayList<ShopServicesModel> selectedServiceList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.booking_ui);
         Checkout.preload(getApplicationContext());
+        selectedServiceList = StoreDetailsActivity.Companion.getSelectedServiceList();
 
+        calculateTotal();
         initViews();
+    }
+
+    private void calculateTotal() {
+        int tot = 0;
+        for (int i = 0; i < selectedServiceList.size(); i++) {
+            tot += (int) selectedServiceList.get(i).getPrice();
+        }
+        total = tot + "";
     }
 
 
@@ -96,7 +112,8 @@ public class SlotBooking extends AppCompatActivity implements SlotBooking_a {
             //You can omit the image option to fetch the image from dashboard
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
             options.put("currency", "INR");
-            options.put("amount", "100");
+            Log.d("TAG", "goToPayments: " + (total+"00"));
+            options.put("amount", total+"00");
 
             JSONObject preFill = new JSONObject();
             preFill.put("email", "test@razorpay.com");
@@ -118,6 +135,9 @@ public class SlotBooking extends AppCompatActivity implements SlotBooking_a {
     public void onPaymentSuccess(String razorpayPaymentID) {
         try {
             Toast.makeText(this, "Payment Successful: " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
+            //NearByFragment.Companion.getLastShop();
+            //
+//            startActivity(new Intent(this, xyz.class));
         } catch (Exception e) {
             Log.e(TAG, "Exception in onPaymentSuccess", e);
         }

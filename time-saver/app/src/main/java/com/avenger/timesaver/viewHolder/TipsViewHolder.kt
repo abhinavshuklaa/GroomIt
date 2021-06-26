@@ -20,7 +20,7 @@ class TipsViewHolder(
             tvVideoTitle.setPaintFlags(tvVideoTitle.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
             tvVideoTitle.text = model.name
             ivImageCard.setOnClickListener {
-                listener.onItemClicked(adapterPosition)
+                listener.onItemClicked(adapterPosition,tvVideoTitle.text.toString())
                 val url: Uri =
                     Uri.parse(model.youtube_url) // get your url from list item or your code.
 

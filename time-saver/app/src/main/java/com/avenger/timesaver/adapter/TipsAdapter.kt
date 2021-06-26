@@ -1,4 +1,4 @@
-package com.avenger.timesaver.Adapter
+package com.avenger.timesaver.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

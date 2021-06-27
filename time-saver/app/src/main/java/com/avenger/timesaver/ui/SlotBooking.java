@@ -14,12 +14,23 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.avenger.timesaver.R;
+import com.avenger.timesaver.models.NotificationModel;
 import com.avenger.timesaver.models.ShopServicesModel;
+import com.avenger.timesaver.retrofit.ApiClient;
+import com.avenger.timesaver.retrofit.Network;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.ktx.Firebase;
 import com.razorpay.Checkout;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SlotBooking extends AppCompatActivity implements SlotBooking_a {
     private static final String TAG = SlotBooking.class.getSimpleName();
@@ -31,6 +42,9 @@ public class SlotBooking extends AppCompatActivity implements SlotBooking_a {
     TextView tvw;
     String total = "0";
     ArrayList<ShopServicesModel> selectedServiceList = new ArrayList<>();
+    ApiClient apiClient = Network.getInstance().create(ApiClient.class);
+    String date;
+    String token = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +52,7 @@ public class SlotBooking extends AppCompatActivity implements SlotBooking_a {
         setContentView(R.layout.booking_ui);
         Checkout.preload(getApplicationContext());
         selectedServiceList = StoreDetailsActivity.Companion.getSelectedServiceList();
-
+        token = StoreDetailsActivity.Companion.getShoperToken();
         calculateTotal();
         initViews();
     }
@@ -69,6 +83,8 @@ public class SlotBooking extends AppCompatActivity implements SlotBooking_a {
                     String Date
                             = dayOfMonth + "-"
                             + (month + 1) + "-" + year;
+                    date = Date;
+
 
                     date_view.setText("Selected Date: " + Date);
                 });
@@ -112,8 +128,8 @@ public class SlotBooking extends AppCompatActivity implements SlotBooking_a {
             //You can omit the image option to fetch the image from dashboard
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
             options.put("currency", "INR");
-            Log.d("TAG", "goToPayments: " + (total+"00"));
-            options.put("amount", total+"00");
+            Log.d("TAG", "goToPayments: " + (total + "00"));
+            options.put("amount", total + "00");
 
             JSONObject preFill = new JSONObject();
             preFill.put("email", "test@razorpay.com");
@@ -134,13 +150,52 @@ public class SlotBooking extends AppCompatActivity implements SlotBooking_a {
     @Override
     public void onPaymentSuccess(String razorpayPaymentID) {
         try {
+
+            sendNotificationToShop();
+            sendNotificationToUser();
+
+
             Toast.makeText(this, "Payment Successful: " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
             //NearByFragment.Companion.getLastShop();
             //
 //            startActivity(new Intent(this, xyz.class));
+
         } catch (Exception e) {
             Log.e(TAG, "Exception in onPaymentSuccess", e);
         }
+    }
+
+    private void sendNotificationToUser() {
+        String title = "Payment Successful";
+        String body = "Your Appointment is Booked " + date;
+
+        hitTarget(token, title, body);
+
+    }
+
+    private void hitTarget(String token, String title, String body) {
+        apiClient.sendPushNotification(token, title, body).enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: " + "notificationSent");
+                } else {
+                    Log.d(TAG, "onResponse: Notification Failed");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void sendNotificationToShop() {
+        String title = "Payment Successful";
+        String body = "Your Appointment is Booked " + date;
+
+        hitTarget(token, title, body);
     }
 
     @SuppressWarnings("unused")

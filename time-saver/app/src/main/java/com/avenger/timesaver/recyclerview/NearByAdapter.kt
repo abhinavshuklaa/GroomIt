@@ -60,6 +60,7 @@ class NearByViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         cardItem?.setOnClickListener {
             cameraMoveInterface.moveCamera(shop)
             //move To another Activity
+            cameraMoveInterface.startStoreDetails(shop)
         }
     }
 

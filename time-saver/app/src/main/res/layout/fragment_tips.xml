@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:fontFamily="@font/open_sans"
-        android:text="Trending Grooming Videos" />
+        android:text="Trending Grooming Videos :" />
 
 
     <androidx.recyclerview.widget.RecyclerView

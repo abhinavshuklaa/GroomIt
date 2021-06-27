@@ -132,7 +132,7 @@ class TipsFragment : Fragment(), tipsItemClickedListener {
     }
 
     override fun onItemClicked(position: Int, content: String) {
-        Toast.makeText(context, "Response : $position", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Response : $position", Toast.LENGTH_SHORT).show()
 
     }
 

@@ -17,15 +17,15 @@ class ShoppingItemViewHolder(
         view.apply {
             Glide.with(shopImage).load(model.imageUrl).into(shopImage)
             shopBrand.text = model.title
-            shopTitle.text = model.price.toString()
+            shopTitle.text = "Price: ${model.price.toString()}"
             shopPrice.text = model.category
             shopCard.setOnClickListener {
                 listener.onItemClicked(adapterPosition, model.link.toString())
-//                val url: Uri =
-//                    Uri.parse(model.link) // get your url from list item or your code.
-//
-//                val intent = Intent(Intent.ACtion, url)
-//                context.startActivity(intent)
+                val url: Uri =
+                    Uri.parse(model.link) // get your url from list item or your code.
+
+                val intent = Intent(Intent.ACTION_VIEW, url)
+                context.startActivity(intent)
             }
         }
     }

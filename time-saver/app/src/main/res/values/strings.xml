@@ -1,5 +1,23 @@
 <resources>
     <string name="app_name">TimeSaver</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logout">Logout</string>
+    <string name="language">Language</string>
+    <string name="regional">Regional</string>
+    <string name="change_password">Change Password</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="profile">Profile</string>
+    <string name="abhinav_shukla">Abhinav Shukla</string>
+    <string name="edit_personal_details">Edit personal details</string>
+    <string name="notifications">Notifications</string>
+    <string name="recent_appointments">Recent Appointments</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="please_enter_your_shop_details"><u>
+        Please Enter Your Shop Details</u></string>
+    <string name="trending_grooming_products"><u>Trending Grooming Products :</u></string>
+    <string name="appointment_details"><u>Appointment Details</u></string>
+    <string name="book_a_cab"><u>Book a Cab </u></string>
+    <string name="set_the_date">Choose Date</string>
+
 </resources>

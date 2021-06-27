@@ -7,6 +7,7 @@ data class Shop(
     val addressLine: String?,
     val city: String?,
     val state: String?,
+    val images: ArrayList<String?>?,
     val pinCode: String?,
     val location: String?,
     val contact_no1: String?,

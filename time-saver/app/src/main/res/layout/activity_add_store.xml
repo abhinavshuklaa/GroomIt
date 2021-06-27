@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,9 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <fragment
                 android:id="@+id/addstoremap"
@@ -23,19 +24,141 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:context=".MapsActivity" />
 
-            <!--    Place the edit text and other ui here-->
-            <Button
-                android:id="@+id/createStore"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Host The Store"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/addstoremap" />
+                android:orientation="vertical"
+                android:padding="10dp"
+                tools:context=".ui.UserDetailsActivity">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tv_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/open_sans"
+                    android:textStyle="bold"
+                    android:text="@string/please_enter_your_shop_details"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="24sp" />
+
+                <EditText
+                    android:id="@+id/etShopName"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/et_custom"
+                    android:fontFamily="@font/open_sans"
+                    android:hint="Shop Name"
+                    android:inputType="textPersonName"
+                    android:padding="12dp"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/etShopAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/et_custom"
+                    android:fontFamily="@font/open_sans"
+                    android:hint="Shop Address"
+                    android:inputType="textPersonName"
+                    android:padding="12dp"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/etShopCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/et_custom"
+                    android:fontFamily="@font/open_sans"
+                    android:hint="City"
+                    android:inputType="textEmailAddress"
+                    android:padding="12dp"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/etShopState"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/et_custom"
+                    android:fontFamily="@font/open_sans"
+                    android:hint="State"
+                    android:padding="12dp"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/etShopPinCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/et_custom"
+                    android:fontFamily="@font/open_sans"
+                    android:hint="PinCode"
+                    android:padding="12dp"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/etShopContactNo_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/et_custom"
+                    android:fontFamily="@font/open_sans"
+                    android:hint="Contact no."
+                    android:padding="12dp"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/etShopContactNo_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/et_custom"
+                    android:fontFamily="@font/open_sans"
+                    android:hint="Additional Contact no."
+                    android:padding="15dp"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <!--    Place the edit text and other ui here-->
+                <Button
+                    android:id="@+id/createStore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="Host The Store" />
+
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

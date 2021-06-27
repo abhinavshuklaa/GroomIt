@@ -6,14 +6,17 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.avenger.timesaver.MainActivity
 import com.avenger.timesaver.R
+import com.avenger.timesaver.interfaces.OnServiceSelectListener
 import com.avenger.timesaver.localdatabases.LocalKeys
 import com.avenger.timesaver.localdatabases.PreferenceHelper
+import com.avenger.timesaver.models.ShopServicesModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -28,12 +31,17 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_user_details.*
 
 
 @AndroidEntryPoint
-class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
+class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback,
+    AdapterView.OnItemSelectedListener {
+    var genders_1 = arrayOf("Male", "Female", "Others")
 
-
+    var spinner: Spinner? = null
+    var textView_msg: TextView? = null
+    private val selectedServiceList: ArrayList<ShopServicesModel> = ArrayList()
     private var map: GoogleMap? = null
     private var cameraPosition: CameraPosition? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -46,23 +54,28 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
         private var locationPermissionGranted = false
 
-
         private const val KEY_CAMERA_POSITION = "camera_position"
 
     }
 
-
-    val gender = "male"
-    val address = "bangalore"
-    val first_name = "Vinod"
-    val lastname = "Kumar"
-    var location = "123456.324435"
-    val contact_number = "9631741582"
-
+    var gender = "Male"
+    var address = "Meerut"
+    var first_name = "abhinav"
+    var lastname = "shukla"
+    var location = " "
+    var contact_number = "9191919191"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_details)
+        textView_msg = this.tvSelectedGender
+        spinner = this.spinner_1
+
+        spinner!!.setOnItemSelectedListener(this)
+        val aa = ArrayAdapter(this, android.R.layout.simple_spinner_item, genders_1)
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner!!.setAdapter(aa)
+
         if (savedInstanceState != null) {
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION)
         }
@@ -75,6 +88,12 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         showCurrentPlace()
 
         findViewById<Button>(R.id.updateUserDetails).setOnClickListener {
+            gender = tvSelectedGender.text.toString()
+            address = et_password.text.toString()
+            contact_number = et_repassword.text.toString()
+            first_name = et_name.text.toString()
+            lastname = etLastname.text.toString()
+
             saveUserDetails(userid, "gender", gender)
             saveUserDetails(userid, "address", address)
             saveUserDetails(userid, "firstName", first_name)
@@ -84,8 +103,6 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             updatePreferences(gender)
             startMainActivity()
         }
-
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -98,33 +115,22 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(map: GoogleMap) {
         this.map = map
 
-        // [START_EXCLUDE]
-        // [START map_current_place_set_info_window_adapter]
-        // Use a custom info window adapter to handle multiple lines of text in the
-        // info window contents.
         map.setOnMapClickListener(OnMapClickListener { latLng -> // Creating a marker
             val markerOptions = MarkerOptions()
 
-            // Setting the position for the marker
             markerOptions.position(latLng)
             location = latLng.latitude.toString() + ":" + latLng.longitude.toString()
-            // Setting the title for the marker.
-            // This will be displayed on taping the marker
             markerOptions.title(latLng.latitude.toString() + " : " + latLng.longitude)
 
-            // Clears the previously touched position
             map.clear()
 
-            // Animating to the touched position
             map.animateCamera(CameraUpdateFactory.newLatLng(latLng))
 
-            // Placing a marker on the touched position
             map.addMarker(markerOptions)
         })
         getLocationPermission()
 
         updateLocationUI()
-
         // Get the current location of the device and set the position of the map.
         getDeviceLocation()
     }
@@ -245,9 +251,9 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-
     private fun startMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     private fun updatePreferences(gender: String) {
@@ -264,6 +270,20 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
                     Log.d("TAG", "saveUserDetails: Failed $key")
                 }
             }
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        Toast.makeText(
+            getApplicationContext(),
+            "Selected Gender: " + genders_1[p2],
+            Toast.LENGTH_SHORT
+        ).show()
+        textView_msg!!.text = genders_1[p2]
+
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+
     }
 
 

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/contentBodyColor">
+
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+        <!-- Add TextView to display the date -->
+        <TextView
+            android:id="@+id/date_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="30dp"
+            android:fontFamily="@font/open_sans"
+            android:text="@string/set_the_date"
+            android:textColor="@android:color/background_dark"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <CalendarView
+            android:id="@+id/calender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </CalendarView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="#c4c4c4" />
+
+        <TextView
+            android:id="@+id/tvSetTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="30dp"
+            android:fontFamily="@font/open_sans"
+            android:text="Choose Time"
+            android:textColor="@android:color/background_dark"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TimePicker
+            android:id="@+id/timePicker1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnSetTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:padding="16dp"
+            android:text="Pay Now to Book" />
+
+
+    </LinearLayout>
+</ScrollView>

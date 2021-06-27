@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nearByItemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="@drawable/ripple_effect"
+    android:minHeight="88dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/serviceItemImage"
+            android:layout_width="130dp"
+            android:layout_height="120dp"
+            android:layout_alignParentStart="true"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="4dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/serviceItemTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_toEndOf="@id/serviceItemImage"
+            android:maxLines="1"
+            android:paddingTop="6dp"
+            android:paddingEnd="16dp"
+            android:text="Gamer Shop"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/serviceSubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/serviceItemTitle"
+            android:layout_gravity="center_vertical"
+            android:layout_toEndOf="@id/serviceItemImage"
+            android:maxLines="1"
+            android:paddingTop="6dp"
+            android:paddingEnd="16dp"
+            android:text="Gamer Shop"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="#3A3A3A"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/nearByDistance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/serviceSubTitle"
+            android:layout_gravity="center_vertical"
+            android:layout_toEndOf="@id/serviceItemImage"
+            android:maxLines="1"
+            android:paddingEnd="16dp"
+            android:text="Gamer Shop"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="#3A3A3A"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

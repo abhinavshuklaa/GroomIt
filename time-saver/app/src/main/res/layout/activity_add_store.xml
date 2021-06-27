@@ -113,6 +113,7 @@
                     android:background="@drawable/et_custom"
                     android:fontFamily="@font/open_sans"
                     android:hint="PinCode"
+                    android:inputType="number"
                     android:padding="12dp"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
@@ -124,6 +125,7 @@
                     android:layout_height="40dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:inputType="number"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/et_custom"
                     android:fontFamily="@font/open_sans"
@@ -137,6 +139,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
+                    android:inputType="number"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/et_custom"

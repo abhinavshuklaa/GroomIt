@@ -4,9 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.avenger.timesaver.R
 import com.avenger.timesaver.adapter.ShopServicesAdapter
@@ -45,9 +43,9 @@ class StoreDetailsActivity : AppCompatActivity(), OnServiceSelectListener {
         getShopKeeperToken()
         getMyFcmToken()
         tvStoreHeaderTitle.text = shop?.name
-        DistanceFromYourLocation.text = (Math.random() * 20).toString()
-        tvStoreAddress.text = shop?.addressLine + "\n" + shop?.city + "\n" + shop?.pinCode
-        tvStoreContactNumberDetails.text = shop?.contact_no1 + "\n" + shop?.contact_no2
+        DistanceFromYourLocation.text = "Distance :${(Math.random() * 20).toString()}"
+        tvStoreAddress.text = "Address" +shop?.addressLine + "\n" + shop?.city + "\n" + shop?.pinCode
+        tvStoreContactNumberDetails.text = "Contact NO"+shop?.contact_no1 + "\n" + shop?.contact_no2
 
         setRecyclerAdapter()
         findViewById<Button>(R.id.btnBookAppointment).setOnClickListener {

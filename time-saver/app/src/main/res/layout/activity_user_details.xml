@@ -86,7 +86,6 @@
             android:background="@drawable/et_custom"
             android:fontFamily="@font/open_sans"
             android:hint="Address"
-            android:inputType="textPassword"
             android:padding="15dp"
             android:textColor="@color/black"
             android:textSize="15sp" />

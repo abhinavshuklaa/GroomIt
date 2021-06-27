@@ -41,6 +41,7 @@ public class SlotBooking extends AppCompatActivity implements SlotBooking_a {
     String date;
     String token = "";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +102,9 @@ public class SlotBooking extends AppCompatActivity implements SlotBooking_a {
                 am_pm = "AM";
             }
             tvw.setText("Selected Time: " + hour + ":" + minute + " " + am_pm);
+
+
+
             goToPayments(tvw.getText().toString(), date_view.getText().toString());
         });
 
@@ -157,8 +161,7 @@ public class SlotBooking extends AppCompatActivity implements SlotBooking_a {
             intent.putExtra("time", tvw.getText().toString());
             intent.putExtra("transactionId", razorpayPaymentID);
             intent.putExtra("amount",total);
-
-            startActivity(new Intent(this, OrderReceiptActivity.class));
+            startActivity(intent);
 
 
         } catch (Exception e) {

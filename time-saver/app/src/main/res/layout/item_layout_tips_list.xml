@@ -48,7 +48,10 @@
 
     <TextView
         android:id="@+id/tvVideoTitle"
-        style="@style/viewParent.headerText"
+        android:textSize="18sp"
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

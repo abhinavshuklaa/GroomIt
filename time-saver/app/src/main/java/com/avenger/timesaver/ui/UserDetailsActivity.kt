@@ -88,8 +88,8 @@ class UserDetailsActivity : AppCompatActivity(), OnMapReadyCallback,
         showCurrentPlace()
 
         findViewById<Button>(R.id.updateUserDetails).setOnClickListener {
-            gender = et_password.text.toString()
-            address = etLastname.text.toString()
+            gender = tvSelectedGender.text.toString()
+            address = et_password.text.toString()
             contact_number = et_repassword.text.toString()
             first_name = et_name.text.toString()
             lastname = etLastname.text.toString()

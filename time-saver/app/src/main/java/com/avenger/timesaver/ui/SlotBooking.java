@@ -14,19 +14,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.avenger.timesaver.R;
-import com.avenger.timesaver.models.NotificationModel;
 import com.avenger.timesaver.models.ShopServicesModel;
 import com.avenger.timesaver.retrofit.ApiClient;
 import com.avenger.timesaver.retrofit.Network;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.ktx.Firebase;
 import com.razorpay.Checkout;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -156,9 +151,15 @@ public class SlotBooking extends AppCompatActivity implements SlotBooking_a {
 
 
             Toast.makeText(this, "Payment Successful: " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
-            //NearByFragment.Companion.getLastShop();
-            //
-//            startActivity(new Intent(this, xyz.class));
+            NearByFragment.Companion.getLastShop();
+            Intent intent = new Intent(this, OrderReceiptActivity.class);
+            intent.putExtra("date", date_view.getText().toString());
+            intent.putExtra("time", tvw.getText().toString());
+            intent.putExtra("transactionId", razorpayPaymentID);
+            intent.putExtra("amount",total);
+
+            startActivity(new Intent(this, OrderReceiptActivity.class));
+
 
         } catch (Exception e) {
             Log.e(TAG, "Exception in onPaymentSuccess", e);
